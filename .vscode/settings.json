@@ -1,0 +1,9 @@
+{
+  "tslint.exclude": "**/*.ts",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "vue"
+  ]
+}
