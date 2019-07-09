@@ -5,7 +5,7 @@
   "author": "Michael J. Currie",
   "private": true,
   "scripts": {
-    "lint": "eslint --ext .ts,.js,.vue --ignore-path ../../.gitignore .",
+    "lint": "eslint --ext .ts,.js,.vue --ignore-path .gitignore .",
     "precommit": "yarn lint",
     "test": "jest",
     "dev": "nuxt",
@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.8.1",
-    "@nuxtjs/eslint-config": "^0.0.1",
+    "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^0.0.1",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
@@ -44,6 +44,7 @@
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
     "vue-class-component": "^7.1.0",
-    "vue-jest": "^3.0.3"
+    "vue-jest": "^3.0.3",
+    "vue-property-decorator": "^8.2.1"
   }
 }
