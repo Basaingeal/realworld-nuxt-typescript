@@ -41,7 +41,6 @@ const config: NuxtConfiguration = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/eslint-module'
   ],
@@ -49,11 +48,7 @@ const config: NuxtConfiguration = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    host: 'conduit.productionready.io',
-    prefix: '/api',
-    retry: true
-  },
+  axios: {},
   /*
    ** Build configuration
    */
@@ -73,7 +68,10 @@ const config: NuxtConfiguration = {
       }
     }
   },
-  modern: 'client'
+  modern: 'client',
+  env: {
+    baseUrl: 'https://conduit.productionready.io/api'
+  }
 }
 
 export default config

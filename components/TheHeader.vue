@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="index.html">conduit</a>
+      <nuxt-link class="navbar-brand" to="/">conduit</nuxt-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
           <!-- Add "active" class when you're on that page" -->
@@ -32,6 +32,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component
 export default class TheHeader extends Vue {}
 </script>

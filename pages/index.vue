@@ -15,7 +15,9 @@
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
               <li class="nav-item">
-                <a class="nav-link disabled" href="">Your Feed</a>
+                <nuxt-link class="nav-link disabled" to="/login">
+                  Your Feed
+                </nuxt-link>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="">Global Feed</a>
@@ -23,48 +25,7 @@
             </ul>
           </div>
 
-          <div class="article-preview">
-            <div class="article-meta">
-              <a href="profile.html">
-                <img src="http://i.imgur.com/Qr71crq.jpg" />
-              </a>
-              <div class="info">
-                <a href="" class="author">Eric Simons</a>
-                <span class="date">January 20th</span>
-              </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                <i class="ion-heart" /> 29
-              </button>
-            </div>
-            <a href="" class="preview-link">
-              <h1>How to build webapps that scale</h1>
-              <p>This is the description for the post.</p>
-              <span>Read more...</span>
-            </a>
-          </div>
-
-          <div class="article-preview">
-            <div class="article-meta">
-              <a href="profile.html">
-                <img src="http://i.imgur.com/N4VcUeJ.jpg" />
-              </a>
-              <div class="info">
-                <a href="" class="author">Albert Pai</a>
-                <span class="date">January 20th</span>
-              </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right">
-                <i class="ion-heart" />32
-              </button>
-            </div>
-            <a href="" class="preview-link">
-              <h1>
-                The song you won't ever stop singing. No matter how hard you
-                try.
-              </h1>
-              <p>This is the description for the post.</p>
-              <span>Read more...</span>
-            </a>
-          </div>
+          <article-preview-list :articles="articlesList" />
         </div>
 
         <div class="col-md-3">
@@ -72,14 +33,7 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+              <tag-link v-for="tag in tags" :key="tag" :label="tag" />
             </div>
           </div>
         </div>
@@ -90,7 +44,35 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import Articles from '../models/articles.interface'
+import TagService from '@/services/TagService'
+import ArticleService from '@/services/ArticleService'
+import TagLink from '@/components/TagLink.vue'
+import ArticlePreviewList from '@/components/ArticlePreviewList.vue'
 
-@Component({})
-export default class IndexPage extends Vue {}
+@Component({
+  components: {
+    TagLink,
+    ArticlePreviewList
+  },
+  async asyncData() {
+    const tags: string[] = (await TagService.getTags()).tags
+    const articles: Articles = await ArticleService.listArticles()
+    return {
+      tags,
+      articles
+    }
+  }
+})
+export default class IndexPage extends Vue {
+  tags: string[] = []
+  articles: Articles = {
+    articles: [],
+    articlesCount: 0
+  }
+
+  get articlesList() {
+    return this.articles.articles
+  }
+}
 </script>

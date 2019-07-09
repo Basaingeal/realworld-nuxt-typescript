@@ -5,7 +5,7 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign up</h1>
           <p class="text-xs-center">
-            <a href="">Have an account?</a>
+            <nuxt-link to="/login">Have an account?</nuxt-link>
           </p>
 
           <ul class="error-messages">
@@ -47,6 +47,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({})
+@Component
 export default class RegisterPage extends Vue {}
 </script>
