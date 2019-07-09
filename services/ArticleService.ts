@@ -34,15 +34,15 @@ class ArticleService {
       baseURL: this.baseUrl,
       params
     }
-    const response = await axios.get<Articles>('/articles', axiosConfig)
-    return response.data
+    const { data } = await axios.get<Articles>('/articles', axiosConfig)
+    return data
   }
 
   public async getArticle(slug: string): Promise<Article> {
-    const response = await axios.get<Article>(
+    const { data } = await axios.get<Article>(
       `${this.baseUrl}/articles/${slug}`
     )
-    return response.data
+    return data
   }
 }
 

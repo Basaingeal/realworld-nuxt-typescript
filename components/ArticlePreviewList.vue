@@ -19,11 +19,6 @@ import ArticlePreview from '@/components/ArticlePreview.vue'
   }
 })
 export default class ArticlePreviewList extends Vue {
-  @Prop({
-    type: Array,
-    default: [],
-    required: false
-  })
-  readonly articles!: Article[]
+  @Prop({ default: [] }) readonly articles!: Article[]
 }
 </script>

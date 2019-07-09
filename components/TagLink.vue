@@ -9,10 +9,6 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
 export default class TagLink extends Vue {
-  @Prop({
-    type: String,
-    required: true
-  })
-  readonly label!: string
+  @Prop({ required: true }) readonly label!: string
 }
 </script>

@@ -5,8 +5,8 @@ class TagService {
   private baseUrl?: string = process.env.baseUrl
 
   public async getTags(): Promise<TagsList> {
-    const response = await axios.get<TagsList>(`${this.baseUrl}/tags`)
-    return response.data
+    const { data } = await axios.get<TagsList>(`${this.baseUrl}/tags`)
+    return data
   }
 }
 
