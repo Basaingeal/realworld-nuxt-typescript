@@ -5,6 +5,9 @@
       :key="article.slug"
       :article="article"
     />
+    <div v-if="articles.length === 0" class="article-preview">
+      No articles are here... yet.
+    </div>
   </div>
 </template>
 

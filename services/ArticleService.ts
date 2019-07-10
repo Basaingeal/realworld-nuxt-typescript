@@ -45,6 +45,33 @@ class ArticleService {
     return data
   }
 
+  public async feedArticles(
+    limit?: number,
+    offset?: number
+  ): Promise<Articles> {
+    const params: any = {}
+    if (limit) {
+      params.limit = limit
+    }
+    if (offset) {
+      params.offset = offset
+    }
+
+    const axiosConfig: AxiosRequestConfig = {
+      method: 'GET',
+      baseURL: this.baseUrl,
+      params
+    }
+
+    const axiosInstance = JwtService.getAuthedAxios() as AxiosInstance
+
+    const { data } = await axiosInstance.get<Articles>(
+      '/articles/feed',
+      axiosConfig
+    )
+    return data
+  }
+
   public async getArticle(slug: string): Promise<Article> {
     const { data } = await axios.get<Article>(
       `${this.baseUrl}/articles/${slug}`
