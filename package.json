@@ -46,6 +46,7 @@
     "prettier": "^1.16.4",
     "vue-class-component": "^7.1.0",
     "vue-jest": "^3.0.3",
-    "vue-property-decorator": "^8.2.1"
+    "vue-property-decorator": "^8.2.1",
+    "vuex-typescript": "^3.0.2"
   }
 }

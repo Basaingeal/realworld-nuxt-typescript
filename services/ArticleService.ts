@@ -1,5 +1,6 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosStatic, AxiosInstance } from 'axios'
 import Articles from './../models/articles.interface'
+import JwtService from '~/services/JwtService'
 import Article from '~/models/article.interface'
 
 class ArticleService {
@@ -34,7 +35,13 @@ class ArticleService {
       baseURL: this.baseUrl,
       params
     }
-    const { data } = await axios.get<Articles>('/articles', axiosConfig)
+
+    let axiosInstance: AxiosStatic | AxiosInstance = axios
+    if (JwtService.getJwt()) {
+      axiosInstance = JwtService.getAuthedAxios() as AxiosInstance
+    }
+
+    const { data } = await axiosInstance.get<Articles>('/articles', axiosConfig)
     return data
   }
 

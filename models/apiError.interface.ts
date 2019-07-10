@@ -1,5 +1,3 @@
 export default interface ApiError {
-  errors: {
-    body: string[]
-  }
+  errors: Map<string, string[]>
 }

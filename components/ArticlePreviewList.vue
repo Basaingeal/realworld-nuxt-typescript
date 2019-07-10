@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import Article from '../models/article.interface'
+import ArticleBase from '../models/articles.interface'
 import ArticlePreview from '@/components/ArticlePreview.vue'
 
 @Component({
@@ -19,6 +19,6 @@ import ArticlePreview from '@/components/ArticlePreview.vue'
   }
 })
 export default class ArticlePreviewList extends Vue {
-  @Prop({ default: [] }) readonly articles!: Article[]
+  @Prop({ default: [] }) readonly articles!: ArticleBase[]
 }
 </script>

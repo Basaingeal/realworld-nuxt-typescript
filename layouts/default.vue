@@ -17,5 +17,11 @@ import TheFooter from '@/components/TheFooter.vue'
     TheFooter
   }
 })
-export default class TheLayout extends Vue {}
+export default class TheLayout extends Vue {
+  async created() {
+    if (this.$store.state.auth.authenticated) {
+      await this.$store.dispatch('auth/refreshUser')
+    }
+  }
+}
 </script>

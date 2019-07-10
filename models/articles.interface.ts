@@ -1,6 +1,6 @@
-import Article from './article.interface'
+import ArticleBase from './articleBase.interface'
 
 export default interface Articles {
-  articles: Article[]
+  articles: ArticleBase[]
   articlesCount: number
 }

@@ -10,8 +10,18 @@
         </nuxt-link>
         <span class="date">{{ createdDate | previewDate }}</span>
       </div>
-      <button class="btn btn-outline-primary btn-sm pull-xs-right">
-        <i class="ion-heart" /> {{ article.favoritesCount }}
+      <button
+        ref="btnFavorite"
+        :class="{
+          btn: true,
+          'btn-outline-primary': !favorited,
+          'btn-primary': favorited,
+          'pull-xs-right': true,
+          disabled: favoriteDisabled
+        }"
+        @click="handleFavoriteClick"
+      >
+        <i class="ion-heart" /> {{ favoritesCount }}
       </button>
     </div>
     <nuxt-link :to="`article/${article.slug}`" class="preview-link">
@@ -24,8 +34,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import Article from '../models/article.interface'
+import ArticleBase from '../models/articleBase.interface'
 import { previewDate } from '@/filters/DateFilters'
+import FavoriteService from '@/services/FavoriteService'
 
 @Component({
   filters: {
@@ -37,7 +48,11 @@ export default class ArticlePreview extends Vue {
     type: Object,
     required: true
   })
-  readonly article!: Article
+  readonly article!: ArticleBase
+
+  favorited: boolean = this.article.favorited
+  favoritesCount: number = this.article.favoritesCount
+  favoriteDisabled: boolean = false
 
   get createdDate() {
     return new Date(this.article.createdAt)
@@ -47,6 +62,31 @@ export default class ArticlePreview extends Vue {
   }
   get authorProfile() {
     return this.article.author
+  }
+
+  async handleFavoriteClick() {
+    if (this.$store.state.auth.authenticated) {
+      this.favoriteDisabled = true
+      if (this.favorited) {
+        const article = await FavoriteService.unfavoriteArticle(
+          this.article.slug
+        )
+        if (article) {
+          this.favorited = article.article.favorited
+          this.favoritesCount = article.article.favoritesCount
+        }
+      } else {
+        const article = await FavoriteService.favoriteArticle(this.article.slug)
+        if (article) {
+          this.favorited = article.article.favorited
+          this.favoritesCount = article.article.favoritesCount
+        }
+      }
+      this.favoriteDisabled = false
+      ;(this.$refs.btnFavorite as HTMLElement).blur()
+    } else {
+      this.$router.push('/login')
+    }
   }
 }
 </script>
