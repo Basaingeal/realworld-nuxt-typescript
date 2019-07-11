@@ -45,5 +45,14 @@ describe('ArticlePreview', () => {
     const wrapper = createWrapper(article)
     const dateSpan = wrapper.find('span.date')
     expect(dateSpan.text()).toHaveLength(13)
+    expect(dateSpan.text()).toContain('February')
+    expect(dateSpan.text()).toContain('th')
+    expect(dateSpan.text()).not.toContain('2016')
+  })
+
+  it('should have a link to the full article', () => {
+    const wrapper = createWrapper(article)
+    const link = wrapper.find('a.preview-link')
+    expect(link.props().to).toEqual('article/how-to-train-your-dragon')
   })
 })
